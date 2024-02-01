@@ -10,7 +10,7 @@ pipeline {
       username = "admin"
       
       // AWS Secrets Manager Secret Name -- Subject to Change 
-      mysecret = "rds!db-f70754ff-fa79-4d57-96d3-77fead03d2bb"
+      mysecret = "rds!db-29d74e77-57e8-49fd-b291-99b50766dd3f"
 
       // AWS Region Code -- Subject to Change
       aws_region = 'eu-west-2'
