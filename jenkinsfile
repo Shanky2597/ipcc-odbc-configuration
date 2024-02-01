@@ -9,14 +9,14 @@ pipeline {
   environment {
       username = "admin"
       
-      # AWS Secrets Manager Secret Name -- Subject to Change 
+      // AWS Secrets Manager Secret Name -- Subject to Change 
       mysecret = "rds!db-f70754ff-fa79-4d57-96d3-77fead03d2bb"
 
-      # AWS Region Code -- Subject to Change
+      // AWS Region Code -- Subject to Change
       aws_region = 'eu-west-2'
       
       fpath="${WORKSPACE}"
-      dsn = "ipcc-rds-db"
+      dsn = "asterisk-ipcc-db"
   }
   
   agent any
