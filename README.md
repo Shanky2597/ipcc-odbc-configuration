@@ -56,3 +56,46 @@ Acceptance Criteria
 ~~~~~~~~~~~~~~~~~~~~
 ✱ Verify email is send to the product team on password change
 
+
+
+
+aws-sm-getsecretvalue - System$2591
+
+pipeline {
+  
+  environment {
+      username = "admin"
+       password = ""
+      
+      // AWS Secrets Manager Secret Name -- Subject to Change 
+      mysecret = "rds!db-995e9de8-56da-4ea0-85b8-7abb9f68429d"
+
+      // AWS Region Code -- Subject to Change
+      aws_region = 'us-east-1’
+      
+      
+  }
+  
+  agent any
+ 
+  stages {
+	stage ('Retrieve secret') {
+
+          steps {
+              script {
+                  
+                  withCredentials([[
+                      $class: 'AmazonWebServicesCredentialsBinding',
+                      credentialsId: 'aws-sm-getsecretvalue',
+                      accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                      secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                          
+                       password = sh(script: """aws secretsmanager get-secret-value --region ${aws_region} \
+                         	 --secret-id ${mysecret} | jq -r .SecretString | jq -r .password""", returnStdout: true’)
+                          	  echo "RDS DB Password: ${password}"
+            
+                  }
+              }
+          }
+      }
+
